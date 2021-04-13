@@ -12,6 +12,10 @@
 */
 
 Route::get('/', function () {
+	if ( Auth::check() ) {
+		// ログイン済の場合は'home.blade.php'を表示させる
+		return view('home');
+	}
     return view('welcome');
 });
 
