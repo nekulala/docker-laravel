@@ -12,13 +12,54 @@
 */
 
 Route::get('/', function () {
-	if ( Auth::check() ) {
-		// ログイン済の場合は'home.blade.php'を表示させる
-		return view('home');
-	}
     return view('welcome');
 });
 
 Auth::routes();
 
+// ログイン後トップページ
 Route::get('/home', 'HomeController@index')->name('home');
+
+// 複数のルートに対して１つのミドルウェアを指定する場合
+Route::group(['middleware' => 'auth'], function () {
+    // 新規ツイート登録ページ
+	Route::view('/tweet', 'tweet');
+	// 新規ツイート登録処理
+	Route::post('/create_tweet', 'HomeController@createTweet');
+
+	// 既存ツイート編集ページ
+	Route::get('/edit/{tweet_id}', 'HomeController@edit');
+
+	// 既存ツイート編集処理
+	Route::post('/edit_tweet/{tweet_id}', 'HomeController@editTweet');
+
+	// 既存ツイート削除処理
+	Route::get('/delete/{tweet_id}', 'HomeController@deleteTweet');
+
+	// ユーザー一覧ページの表示
+	Route::get('/users', 'UserController@index')->name('users');
+
+	// ユーザーをフォローする処理
+	Route::get('/follow/{user_id}', 'UserController@follow');
+
+	// ユーザーをフォロー解除する処理
+	Route::get('/unfollow/{user_id}', 'UserController@unfollow');
+
+	// フォローしているユーザーの一覧
+	Route::get('/followers', 'UserController@followers');
+
+	// コメント登録ページ
+	Route::get('/comment/{tweet_id}', 'CommentController@comment');
+
+	// コメント登録処理
+	Route::post('/create_comment/{tweet_id}', 'CommentController@createComment');
+
+	// いいね登録処理
+	Route::get('/favorite/{tweet_id}', 'FavoriteController@favorite');
+
+	// いいね解除処理
+	Route::get('/unfavorite/{tweet_id}', 'FavoriteController@unfavorite');
+
+	// いいねしているツイートの一覧
+	Route::get('/favorites', 'FavoriteController@favorites');
+});
