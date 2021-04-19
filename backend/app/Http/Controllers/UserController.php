@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
 use App\Models\Follower;
+use App\Models\Favorite;
 
 class UserController extends Controller
 {
@@ -28,10 +29,20 @@ class UserController extends Controller
 
 	// ユーザーをフォロー解除する処理
 	public function unfollow(Request $request, $user_id) {
+		// ログインしているユーザーのデータを取得
 		$login_user = Auth::user();
+		// フォロー解除対象のユーザーidがログインユーザーと同じorログインユーザーがフォロー解除対象のユーザーをフォローしていない場合トップページへリダイレクトする
 		if ($login_user->id == $user_id || !$login_user->isFollowing($user_id)) {
 			return redirect('home');
 		}
+
+		// フォロー解除対象ユーザーのつぶやきのいいねも削除
+		$favorites = Favorite::join('tweets', 'tweets.id', '=', 'favorites.tweet_id')
+				->where('favorites.user_id', Auth::id())
+				->where('tweets.user_id', $user_id)
+				->delete();
+
+		// フォロー解除処理
 		$login_user->follows()->detach($user_id);
 		return redirect('users');
 	}

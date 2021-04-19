@@ -50,7 +50,7 @@ class User extends Authenticatable
 		return (boolean) $this->follows()->where('followed_id', $user_id)->first(['id']);
 	}
 
-	// コメントしたユーザーの名前を取得
+	// ユーザーの名前を取得
 	public static function getUserName($user_id) {
 		$comment_user = self::select('name')->where('id', $user_id)->first();
 		return $comment_user;

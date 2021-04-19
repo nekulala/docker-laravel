@@ -16,8 +16,8 @@
 						<tbody>
 							@foreach ($favorites as $favorite)
 								<tr>
-									<td>{{ App\Models\User::getUserName(App\Models\Favorite::favoriteTweet($favorite->tweet_id)->user_id)->name }}</td>
-									<td>{{ App\Models\Favorite::favoriteTweet($favorite->tweet_id)->tweet }}</td>
+									<td>{{ $favorite->name }}</td>
+									<td>{{ $favorite->tweet }}</td>
 								</tr>
 							@endforeach
 						</tbody>

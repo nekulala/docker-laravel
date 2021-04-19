@@ -56,8 +56,12 @@ class FavoriteController extends Controller
 	}
 
 	public function favorites() {
-		// ログインユーザーのいいねしたツイートを取得
-		$favorites = Favorite::where('user_id', Auth::id())->get();
+		// ログインユーザーのいいねしたツイートおよびそのツイートをしたユーザーの名前を取得
+		$favorites = Tweet::select('users.name', 'tweets.tweet')
+				->join('favorites', 'tweets.id', '=', 'favorites.tweet_id')
+				->join('users', 'users.id', '=', 'tweets.user_id')
+				->where('favorites.user_id', Auth::id())
+				->get();
 		return view('favorites', compact('favorites'));
 	}
 }
