@@ -32,7 +32,7 @@ class FavoriteController extends Controller
 		return redirect('home');
 	}
 
-	// いいね解除
+	// いいね解除処理
 	public function unfavorite(Favorite $favorite, $tweet_id) {
 		// ツイートが存在するか（削除されていないか）の判定
 		if ($tweet = Tweet::where('id', $tweet_id)->exists()) {
@@ -55,6 +55,7 @@ class FavoriteController extends Controller
 		return redirect('home');
 	}
 
+	// いいねしているツイートの一覧
 	public function favorites() {
 		// ログインユーザーのいいねしたツイートおよびそのツイートをしたユーザーの名前を取得
 		$favorites = Tweet::select('users.name', 'tweets.tweet')
