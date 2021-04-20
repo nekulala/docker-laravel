@@ -24,31 +24,31 @@ class FavoriteControllerTest extends TestCase
     // }
 
 
-	// // いいね登録処理
-	// public function testFavorite() {
-	// 	$login_user = User::find(5);
-	// 	$tweet_id = 28;
-	// 	// ツイートが存在するか（削除されていないか）の判定
-	// 	if ($tweet = Tweet::where('id', $tweet_id)->exists()) {
-	// 		// 存在している場合は該当ツイートを取得
-	// 		$tweet = Tweet::find($tweet_id);
-	// 		// 該当ツイートをしたユーザーをフォローしているor該当ツイートをしたのがログインユーザーかの判定
-	// 		if ($login_user->isFollowing($tweet->user_id) || $login_user->id == $tweet->user_id) {
-	// 			// いいねしているかの判定
-	// 			$is_favorite = Favorite::isFavorite($login_user->id, $tweet_id);
-	// 			// いいねしていなければいいね登録処理
-	// 			if (!$is_favorite) {
-	// 				$favorite = new Favorite();
-	// 				$favorite->user_id = $login_user->id;
-	// 				$favorite->tweet_id = $tweet_id;
-	// 				$response1 = $favorite->save();
-	// 				$this->assertTrue($response1);
-	// 				$response2 = $this->actingAs($login_user)->get('home');
-	// 				$response2->assertStatus(200);
-	// 			}
-	// 		}
-	// 	}
-	// }
+	// いいね登録処理
+	public function testFavorite() {
+		$login_user = User::find(5);
+		$tweet_id = 28;
+		// ツイートが存在するか（削除されていないか）の判定
+		if ($tweet = Tweet::where('id', $tweet_id)->exists()) {
+			// 存在している場合は該当ツイートを取得
+			$tweet = Tweet::find($tweet_id);
+			// 該当ツイートをしたユーザーをフォローしているor該当ツイートをしたのがログインユーザーかの判定
+			if ($login_user->isFollowing($tweet->user_id) || $login_user->id == $tweet->user_id) {
+				// いいねしているかの判定
+				$is_favorite = Favorite::isFavorite($login_user->id, $tweet_id);
+				// いいねしていなければいいね登録処理
+				if (!$is_favorite) {
+					$favorite = new Favorite();
+					$favorite->user_id = $login_user->id;
+					$favorite->tweet_id = $tweet_id;
+					$response1 = $favorite->save();
+					$this->assertTrue($response1);
+					$response2 = $this->actingAs($login_user)->get('home');
+					$response2->assertStatus(200);
+				}
+			}
+		}
+	}
 
 	// いいね解除
 	public function testUnfavorite() {
