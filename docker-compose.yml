@@ -14,8 +14,10 @@ services:
     working_dir: /work
   db:
     build: ./infra/mysql
+    ports:
+      - 3306:3306
     volumes:
-      - db-store:/var/lib/mysql
+      - db-store2:/var/lib/mysql
 
 volumes:
-  db-store:
+  db-store2:
