@@ -26,13 +26,14 @@ class FavoriteController extends Controller
 					$favorite->user_id = Auth::id();
 					$favorite->tweet_id = $tweet_id;
 					$favorite->save();
+					return redirect('home');
 				}
 			}
 		}
-		return redirect('home');
+		return redirect('home')->with('ng', __('いいね登録に失敗しました'));
 	}
 
-	// いいね解除処理
+	// いいね取消処理
 	public function unfavorite(Favorite $favorite, $tweet_id) {
 		// ツイートが存在するか（削除されていないか）の判定
 		if ($tweet = Tweet::where('id', $tweet_id)->exists()) {
@@ -49,10 +50,11 @@ class FavoriteController extends Controller
 						->where('tweet_id', $tweet_id)
 						->first();
 					$favorite->delete();
+					return redirect('home');
 				}
 			}
 		}
-		return redirect('home');
+		return redirect('home')->with('ng', __('いいね取消に失敗しました'));
 	}
 
 	// いいねしているツイートの一覧

@@ -14,9 +14,12 @@
                     @endif
 					<form action="{{ url('/create_tweet') }}" method="POST">
 						@csrf
-					<div class="form-group">
-  						<input type="text" class="form-control" name="tweet">
-  					<div>
+						<div class="form-group">
+							<input type="text" class="form-control" name="tweet">
+						<div>
+						@error('tweet')
+							<li>{{$message}}</li>
+						@enderror
 						<button type="submit" class="btn btn-primary">つぶやく</button>
 					</form>
                 </div>

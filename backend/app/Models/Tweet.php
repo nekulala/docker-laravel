@@ -20,4 +20,17 @@ class Tweet extends Model
     public function comments() {
         return $this->hasMany(Comment::class);
     }
+
+    public function favorites() {
+        return $this->hasMany(Favorite::class);
+    }
+
+	// つぶやきが削除されたとき紐づくコメントといいねも削除
+	protected static function boot() {
+		parent::boot();
+		self::deleting(function ($tweet) {
+		$tweet->comments()->delete();
+		$tweet->favorites()->delete();
+		});
+	}
 }

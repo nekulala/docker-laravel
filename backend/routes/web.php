@@ -20,10 +20,11 @@ Auth::routes();
 // ログイン後トップページ
 Route::get('/home', 'HomeController@index')->name('home');
 
-// 複数のルートに対して１つのミドルウェアを指定する場合
+// 以下ログインしている場合にアクセス可能なルート
 Route::group(['middleware' => 'auth'], function () {
     // 新規ツイート登録ページ
 	Route::view('/tweet', 'tweet');
+
 	// 新規ツイート登録処理
 	Route::post('/create_tweet', 'HomeController@createTweet');
 
@@ -57,7 +58,7 @@ Route::group(['middleware' => 'auth'], function () {
 	// いいね登録処理
 	Route::get('/favorite/{tweet_id}', 'FavoriteController@favorite');
 
-	// いいね解除処理
+	// いいね取消処理
 	Route::get('/unfavorite/{tweet_id}', 'FavoriteController@unfavorite');
 
 	// いいねしているツイートの一覧

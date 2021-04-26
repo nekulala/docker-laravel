@@ -14,12 +14,16 @@
         	        @endif
 					<table class="table table-striped">
 						<tbody>
-							@foreach ($favorites as $favorite)
-								<tr>
-									<td>{{ $favorite->name }}</td>
-									<td>{{ $favorite->tweet }}</td>
-								</tr>
-							@endforeach
+							@if ($favorites->isEmpty())
+								いいねしているつぶやきはありません。
+							@else
+								@foreach ($favorites as $favorite)
+									<tr>
+										<td>{{ $favorite->name }}</td>
+										<td>{{ $favorite->tweet }}</td>
+									</tr>
+								@endforeach
+							@endif
 						</tbody>
 					</table>
         	    </div>

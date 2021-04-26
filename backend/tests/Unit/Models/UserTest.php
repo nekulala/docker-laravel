@@ -22,22 +22,11 @@ class UserTest extends TestCase
      * @test
      * @group User
      */
-	public function testFollows() {
-		$user = new User();
-		$response = $user->belongsToMany(User::class, 'followers', 'following_id', 'followed_id');
-		$this->assertNotNull($response);
-	}
 
 	// フォローしているか
-	public function testIsFollowing() {
+	public function test_フォローしているか() {
 		$user = new User();
 		$follow_user = (boolean) $user->follows()->where('followed_id', 1)->first(['id']);
 		$this->assertTrue($follow_user);
-	}
-
-	// ユーザーの名前を取得
-	public function testGetUserName() {
-		$user_name = User::select('name')->where('id', 1)->first();
-		$this->assertSame($user_name->name, 'yui');
 	}
 }

@@ -41,14 +41,12 @@ class User extends Authenticatable
         return $this->belongsToMany(self::class, 'followers', 'following_id', 'followed_id');
     }
 
+	// public function follows() {
+    //     return $this->hasManyThrough(self::class, Follower::class, 'following_id', 'id', 'id', 'followed_id');
+    // }
+
 	// フォローしているか
 	public function isFollowing(Int $user_id) {
 		return (boolean) $this->follows()->where('followed_id', $user_id)->first(['id']);
-	}
-
-	// ユーザーの名前を取得
-	public static function getUserName($user_id) {
-		$comment_user = self::select('name')->where('id', $user_id)->first();
-		return $comment_user;
 	}
 }

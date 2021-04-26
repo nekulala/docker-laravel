@@ -13,13 +13,9 @@ class FavoriteTest extends TestCase
      *
      * @return void
      */
-    public function testExample()
-    {
-        $this->assertTrue(true);
-    }
 
 	// いいねしているかの判定
-	public function testIsFavorite() {
+	public function test_いいねしているか() {
 		$favorite = (boolean) Favorite::where('user_id', 4)->where('tweet_id', 2)->first();
 		$this->assertTrue($favorite);
 	}

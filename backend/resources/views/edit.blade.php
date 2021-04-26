@@ -17,6 +17,9 @@
 					<div class="form-group">
   						<input type="text" class="form-control" name="tweet">
   					<div>
+					@error('tweet')
+						<li>{{$message}}</li>
+					@enderror
 						<button type="submit" class="btn btn-success">編集</button>
 					</form>
                 </div>

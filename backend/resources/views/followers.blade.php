@@ -14,13 +14,15 @@
         	        @endif
 					<table class="table table-striped">
 						<tbody>
-							@foreach ($users as $user)
-								<tr>
-								@if (Auth::user()->isFollowing($user->id))
-									<td>{{ $user->name }}</td>
-								@endif
-								</tr>
-							@endforeach
+							@if ($following_users->isEmpty())
+								フォローしているユーザーはいません。
+							@else
+								@foreach ($following_users as $following_user)
+									<tr>
+										<td>{{ $following_user->name }}</td>
+									</tr>
+								@endforeach
+							@endif
 						</tbody>
 					</table>
         	    </div>

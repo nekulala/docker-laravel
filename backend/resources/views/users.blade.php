@@ -4,14 +4,14 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
+        	@if (session('ng'))
+        	    <div class="alert alert-danger" role="alert">
+        	        {{ session('ng') }}
+        	    </div>
+        	@endif
         	<div class="card">
         	    <div class="card-header">ユーザー一覧</div>
         	    <div class="card-body">
-        	        @if (session('status'))
-        	            <div class="alert alert-success" role="alert">
-        	                {{ session('status') }}
-        	            </div>
-        	        @endif
 					<table class="table table-striped">
 						<tbody>
 							@foreach ($users as $user)

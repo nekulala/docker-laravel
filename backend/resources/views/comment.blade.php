@@ -17,6 +17,9 @@
 					<div class="form-group">
   						<input type="text" class="form-control" name="comment">
   					<div>
+					@error('comment')
+						<li>{{$message}}</li>
+					@enderror
 						<button type="submit" class="btn btn-success">コメント</button>
 					</form>
                 </div>
