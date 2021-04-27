@@ -25,7 +25,7 @@ class Tweet extends Model
         return $this->hasMany(Favorite::class);
     }
 
-	// つぶやきが削除されたとき紐づくコメントといいねも削除
+	// つぶやきが削除されたとき紐づくコメントといいねも削除(SoftDeletes対策)
 	protected static function boot() {
 		parent::boot();
 		self::deleting(function ($tweet) {

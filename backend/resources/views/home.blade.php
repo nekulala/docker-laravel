@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+@inject('favorites', 'App\Models\Favorite')
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -35,7 +36,7 @@
 													<a class="btn btn-success btn-sm" href="{{ url('/edit/' .$tweet->id) }}" role="button">編集</a>
 													<a class="btn btn-danger btn-sm" href="{{ url('/delete/' .$tweet->id) }}" role="button">削除</a>
 												@endif
-												@if (App\Models\Favorite::isFavorite(Auth::id(), $tweet->id))
+												@if ($favorites->isFavorite(Auth::id(), $tweet->id))
 													<a class="btn btn-secondary btn-sm" href="{{ url('/unfavorite/' .$tweet->id) }}" role="button">いいね取消</a>
 												@else
 													<a class="btn btn-warning btn-sm" href="{{ url('/favorite/' .$tweet->id) }}" role="button">いいね</a>
