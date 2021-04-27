@@ -24,7 +24,6 @@ class UserController extends Controller
 		if (User::where('id', $user_id)->exists()) {
 			// ログインしているユーザーのデータを取得
 			$login_user = Auth::user();
-			dd($login_user->follows());
 			// ①フォロー対象のユーザーがログインユーザーではない
 			// ②ログインユーザーがフォロー対象のユーザーを未フォローか確認
 			if ($login_user->id != $user_id && !$login_user->isFollowing($user_id)) {
@@ -41,7 +40,6 @@ class UserController extends Controller
 		if (User::where('id', $user_id)->exists()) {
 			// ログインしているユーザーのデータを取得
 			$login_user = Auth::user();
-			dd($login_user->isFollowing($user_id));
 			// ①フォロー解除対象のユーザーがログインユーザーではない
 			// ②ログインユーザーがフォロー解除対象のユーザーをフォロー済か確認
 			if ($login_user->id != $user_id && $login_user->isFollowing($user_id)) {
