@@ -15,7 +15,7 @@
 					<form action="{{ url('/create_tweet') }}" method="POST">
 						@csrf
 						<div class="form-group">
-							<input type="text" class="form-control" name="tweet">
+							<input type="text" class="form-control mb-2" name="tweet">
 						<div>
 						@error('tweet')
 							<li>{{$message}}</li>

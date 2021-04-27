@@ -16,7 +16,7 @@
         	@endif
 		<a class="btn btn-primary" href="{{ url('/tweet') }}" role="button">つぶやく</a>
 		<a class="btn btn-danger" href="{{ url('/users') }}" role="button">ユーザー一覧</a>
-        	<div class="card">
+        	<div class="card mt-3">
         	    <div class="card-header">タイムライン</div>
         	    <div class="card-body">
 					<table class="table table-striped">
