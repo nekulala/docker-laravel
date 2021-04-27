@@ -30,7 +30,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::post('/create_tweet', 'TweetController@createTweet');
 
 	// 既存ツイート編集ページ
-	Route::get('/edit/{tweet_id}', 'TweetController@edit');
+	Route::get('/edit/{tweet_id}', 'TweetController@showEditPage');
 
 	// 既存ツイート編集処理
 	Route::post('/edit_tweet/{tweet_id}', 'TweetController@editTweet');

@@ -26,7 +26,7 @@ class TweetController extends Controller
     }
 
 	// 既存ツイート編集ページ表示
-	public function edit($tweet_id) {
+	public function showEditPage($tweet_id) {
 		// 該当のつぶやきが存在しているかを確認
 		if ($tweet = Tweet::where('id', $tweet_id)->exists()) {
 			$tweet = Tweet::find($tweet_id);
