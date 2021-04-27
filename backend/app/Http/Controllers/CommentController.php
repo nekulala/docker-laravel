@@ -10,7 +10,7 @@ use App\Models\Tweet;
 class CommentController extends Controller
 {
 	// コメント登録ページの表示
-	public function comment($tweet_id) {
+	public function showEditCommentPage($tweet_id) {
 		// 該当のつぶやきが存在しているかを確認
 		if ($tweet = Tweet::where('id', $tweet_id)->exists()) {
 			$tweet = Tweet::find($tweet_id);

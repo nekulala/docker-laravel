@@ -51,7 +51,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/followers', 'UserController@followers');
 
 	// コメント登録ページ
-	Route::get('/comment/{tweet_id}', 'CommentController@comment');
+	Route::get('/comment/{tweet_id}', 'CommentController@showEditCommentPage');
 
 	// コメント登録処理
 	Route::post('/create_comment/{tweet_id}', 'CommentController@createComment');
