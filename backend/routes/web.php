@@ -27,16 +27,16 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::view('/tweet', 'tweet');
 
 	// 新規ツイート登録処理
-	Route::post('/create_tweet', 'HomeController@createTweet');
+	Route::post('/create_tweet', 'TweetController@createTweet');
 
 	// 既存ツイート編集ページ
-	Route::get('/edit/{tweet_id}', 'HomeController@edit');
+	Route::get('/edit/{tweet_id}', 'TweetController@edit');
 
 	// 既存ツイート編集処理
-	Route::post('/edit_tweet/{tweet_id}', 'HomeController@editTweet');
+	Route::post('/edit_tweet/{tweet_id}', 'TweetController@editTweet');
 
 	// 既存ツイート削除処理
-	Route::get('/delete/{tweet_id}', 'HomeController@deleteTweet');
+	Route::get('/delete/{tweet_id}', 'TweetController@deleteTweet');
 
 	// ユーザー一覧ページの表示
 	Route::get('/users', 'UserController@index')->name('users');
