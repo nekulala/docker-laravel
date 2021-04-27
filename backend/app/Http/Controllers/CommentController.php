@@ -16,7 +16,7 @@ class CommentController extends Controller
 			$tweet = Tweet::find($tweet_id);
 			// 該当つぶやきがログインユーザーのものであるor該当つぶやきのユーザーをフォローしているか確認
 			if(Auth::id() === $tweet->user->id || Auth::user()->isFollowing($tweet->user->id)) {
-				return view('comment', compact('tweet_id'));
+				return view('comment', compact('tweet'));
 			}
 		}
 		return redirect('home')->with('ng', __('コメント追加ページを表示できません。'));

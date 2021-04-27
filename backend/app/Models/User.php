@@ -45,7 +45,7 @@ class User extends Authenticatable
     //     return $this->hasManyThrough(self::class, Follower::class, 'following_id', 'id', 'id', 'followed_id');
     // }
 
-	// フォローしているか
+	// 対象ユーザーをフォローしているかの判定
 	public function isFollowing(Int $user_id) {
 		return (boolean) $this->follows()->where('followed_id', $user_id)->first(['id']);
 	}

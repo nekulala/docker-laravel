@@ -32,7 +32,7 @@ class TweetController extends Controller
 			$tweet = Tweet::find($tweet_id);
 			// 該当のつぶやきがログインユーザーのものか確認
 			if (Auth::id() === $tweet->user_id) {
-				return view('edit', compact('tweet_id'));
+				return view('edit', compact('tweet'));
 			}
 		}
 		return redirect('home');

@@ -12,10 +12,10 @@
                             {{ session('status') }}
                         </div>
                     @endif
-					<form action="{{ url('/edit_tweet/' .$tweet_id)}}" method="POST">
+					<form action="{{ url('/edit_tweet/' .$tweet->id)}}" method="POST">
 						@csrf
 						<div class="form-group">
-  							<input type="text" class="form-control mb-2" name="tweet">
+  							<input type="text" class="form-control mb-2" name="tweet" value="{{ $tweet->tweet }}">
   						<div>
 						@error('tweet')
 							<li>{{$message}}</li>

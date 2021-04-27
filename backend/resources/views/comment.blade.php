@@ -12,7 +12,7 @@
                             {{ session('status') }}
                         </div>
                     @endif
-					<form action="{{ url('/create_comment/' .$tweet_id) }}" method="POST">
+					<form action="{{ url('/create_comment/' .$tweet->id) }}" method="POST">
 						@csrf
 						<div class="form-group">
   							<input type="text" class="form-control mb-2" name="comment">
