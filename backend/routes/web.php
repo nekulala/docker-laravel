@@ -18,7 +18,7 @@ Route::get('/', function () {
 
 Auth::routes();
 
-// ログイン後トップページ
+// ログイン後トップページ(リダイレクトで使用するためnameをつけている)
 Route::get('/home', 'HomeController@index')->name('home');
 
 // 以下ログインしている場合にアクセス可能なルート
@@ -38,7 +38,7 @@ Route::group(['middleware' => 'auth'], function () {
 	// 既存ツイート削除処理
 	Route::get('/delete/{tweet_id}', 'TweetController@deleteTweet');
 
-	// ユーザー一覧ページの表示
+	// ユーザー一覧ページの表示(リダイレクトで使用するためnameをつけている)
 	Route::get('/users', 'UserController@index')->name('users');
 
 	// ユーザーをフォローする処理

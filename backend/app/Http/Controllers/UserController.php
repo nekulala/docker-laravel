@@ -20,36 +20,45 @@ class UserController extends Controller
 
 	// ユーザーをフォローする処理
 	public function follow($user_id) {
-		$login_user = Auth::user();
-		// フォロー対象のユーザーidがログインユーザーと同じorログインユーザーがフォロー対象のユーザーをフォロー済の場合トップページへリダイレクトする
-		if ($login_user->id == $user_id || $login_user->isFollowing($user_id)) {
-			return redirect('users')->with('ng', __('フォローに失敗しました。'));
+		// 該当のユーザーが存在しているかを確認
+		if (User::where('id', $user_id)->exists()) {
+			// ログインしているユーザーのデータを取得
+			$login_user = Auth::user();
+			// ①フォロー対象のユーザーがログインユーザーではない
+			// ②ログインユーザーがフォロー対象のユーザーを未フォローか確認
+			if ($login_user->id != $user_id && !$login_user->isFollowing($user_id)) {
+				$login_user->follows()->attach($user_id);
+				return redirect('users');
+			}
 		}
-		$login_user->follows()->attach($user_id);
-		return redirect('users');
+		return redirect('users')->with('ng', __('フォローに失敗しました。'));
 	}
 
 	// ユーザーをフォロー解除する処理
 	public function unfollow($user_id) {
-		// ログインしているユーザーのデータを取得
-		$login_user = Auth::user();
-		// フォロー解除対象のユーザーidがログインユーザーと同じorログインユーザーがフォロー解除対象のユーザーを未フォローの場合トップページへリダイレクトする
-		if ($login_user->id == $user_id || !$login_user->isFollowing($user_id)) {
-			return redirect('home');
+		// 該当のユーザーが存在しているかを確認
+		if (User::where('id', $user_id)->exists()) {
+			// ログインしているユーザーのデータを取得
+			$login_user = Auth::user();
+			// ①フォロー解除対象のユーザーがログインユーザーではない
+			// ②ログインユーザーがフォロー解除対象のユーザーをフォロー済か確認
+			if ($login_user->id != $user_id && $login_user->isFollowing($user_id)) {
+				// フォロー解除対象ユーザーのつぶやきに対するいいねも削除
+				$favorites = Favorite::join('tweets', 'tweets.id', '=', 'favorites.tweet_id')
+						->where('favorites.user_id', Auth::id())
+						->where('tweets.user_id', $user_id)
+						->delete();
+				// フォロー解除対象ユーザーのつぶやきに対するコメントも削除
+				$comments = Comment::join('tweets', 'tweets.id', '=', 'comments.tweet_id')
+						->where('comments.user_id', Auth::id())
+						->where('tweets.user_id', $user_id)
+						->delete();
+				// フォロー解除処理
+				$login_user->follows()->detach($user_id);
+				return redirect('users');
+			}
 		}
-		// フォロー解除対象ユーザーのつぶやきのいいねも削除
-		$favorites = Favorite::join('tweets', 'tweets.id', '=', 'favorites.tweet_id')
-				->where('favorites.user_id', Auth::id())
-				->where('tweets.user_id', $user_id)
-				->delete();
-		// フォロー解除対象ユーザーのつぶやきのいいねも削除
-		$comments = Comment::join('tweets', 'tweets.id', '=', 'comments.tweet_id')
-				->where('comments.user_id', Auth::id())
-				->where('tweets.user_id', $user_id)
-				->delete();
-		// フォロー解除処理
-		$login_user->follows()->detach($user_id);
-		return redirect('users');
+		return redirect('users')->with('ng', __('フォロー解除に失敗しました。'));
 	}
 
 	// フォローしているユーザー一覧の表示

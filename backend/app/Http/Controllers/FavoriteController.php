@@ -13,15 +13,13 @@ class FavoriteController extends Controller
     // いいね登録処理
 	public function favorite(Favorite $favorite, $tweet_id) {
 		// ツイートが存在するか（削除されていないか）の判定
-		if ($tweet = Tweet::where('id', $tweet_id)->exists()) {
+		if (Tweet::where('id', $tweet_id)->exists()) {
 			// 存在している場合は該当ツイートを取得
 			$tweet = Tweet::find($tweet_id);
-			// 該当ツイートをしたユーザーをフォローしているor該当ツイートをしたのがログインユーザーかの判定
+			// 該当ツイートをしたユーザーをフォローしている or 該当ツイートをしたのがログインユーザーかの判定
 			if (Auth::user()->isFollowing($tweet->user_id) || Auth::id() == $tweet->user_id) {
-				// いいねしているかの判定
-				$is_favorite = $favorite->isFavorite(Auth::id(), $tweet_id);
 				// いいねしていなければいいね登録処理
-				if (!$is_favorite) {
+				if (!$favorite->isFavorite(Auth::id(), $tweet_id)) {
 					$favorite = new Favorite();
 					$favorite->user_id = Auth::id();
 					$favorite->tweet_id = $tweet_id;
@@ -36,15 +34,13 @@ class FavoriteController extends Controller
 	// いいね取消処理
 	public function unfavorite(Favorite $favorite, $tweet_id) {
 		// ツイートが存在するか（削除されていないか）の判定
-		if ($tweet = Tweet::where('id', $tweet_id)->exists()) {
+		if (Tweet::where('id', $tweet_id)->exists()) {
 			// 存在している場合は該当ツイートを取得
 			$tweet = Tweet::find($tweet_id);
 			// 該当ツイートをしたユーザーをフォローしているor該当ツイートをしたのがログインユーザーかの判定
 			if (Auth::user()->isFollowing($tweet->user_id) || Auth::id() == $tweet->user_id) {
-				// いいねしているかの判定
-				$is_favorite = $favorite->isFavorite(Auth::id(), $tweet_id);
-				// いいねしていなければいいね解除処理
-				if ($is_favorite) {
+				// いいねしていればいいね解除処理
+				if ($favorite->isFavorite(Auth::id(), $tweet_id)) {
 					// favoritesテーブルからログインユーザーIDといいねされてるtweet_id両方合致するレコードを取得
 					$favorite = Favorite::where('user_id', Auth::id())
 						->where('tweet_id', $tweet_id)
