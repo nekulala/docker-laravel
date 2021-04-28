@@ -28,7 +28,7 @@ class UserController extends Controller
 			// ②ログインユーザーがフォロー対象のユーザーを未フォローか確認
 			if ($login_user->id != $user_id && !$login_user->isFollowing($user_id)) {
 				$login_user->follows()->attach($user_id);
-				return back()->withInput();
+				return back();
 			}
 		}
 		return redirect('users')->with('ng', __('フォローに失敗しました。'));
@@ -55,7 +55,7 @@ class UserController extends Controller
 						->delete();
 				// フォロー解除処理
 				$login_user->follows()->detach($user_id);
-				return back()->withInput();
+				return back();
 			}
 		}
 		return redirect('users')->with('ng', __('フォロー解除に失敗しました。'));

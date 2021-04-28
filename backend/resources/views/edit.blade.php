@@ -15,7 +15,6 @@
 					<form action="{{ url('/edit_tweet/' .$tweet->id)}}" method="POST">
 						@csrf
 						<div class="form-group">
-  							<!-- <input type="text" class="form-control mb-2" name="tweet" value="{{ $tweet->tweet }}"> -->
 							<input id="tweet" type="text" class="form-control @error('tweet') is-invalid @enderror mb-2" name="tweet" value="{{ old('tweet') }}" required autocomplete="tweet" autofocus>
   						<div>
 						@error('tweet')

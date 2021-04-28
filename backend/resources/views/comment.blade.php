@@ -15,7 +15,6 @@
 					<form action="{{ url('/create_comment/' .$tweet->id) }}" method="POST">
 						@csrf
 						<div class="form-group">
-  							<!-- <input type="text" class="form-control mb-2" name="comment"> -->
 							<input id="comment" type="text" class="form-control @error('comment') is-invalid @enderror mb-2" name="comment" value="{{ old('comment') }}" required autocomplete="comment" autofocus>
   						<div>
 						@error('comment')

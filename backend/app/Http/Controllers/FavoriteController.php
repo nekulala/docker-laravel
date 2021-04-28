@@ -24,7 +24,7 @@ class FavoriteController extends Controller
 					$favorite->user_id = Auth::id();
 					$favorite->tweet_id = $tweet_id;
 					$favorite->save();
-					return back()->withInput();
+					return back();
 				}
 			}
 		}
@@ -46,7 +46,7 @@ class FavoriteController extends Controller
 						->where('tweet_id', $tweet_id)
 						->first();
 					$favorite->delete();
-					return back()->withInput();
+					return back();
 				}
 			}
 		}
