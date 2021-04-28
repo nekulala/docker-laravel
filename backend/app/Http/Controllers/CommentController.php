@@ -10,9 +10,9 @@ use App\Models\Tweet;
 class CommentController extends Controller
 {
 	// コメント登録ページの表示
-	public function showEditCommentPage($tweet_id) {
+	public function showEditCommentPage(Tweet $tweet, $tweet_id) {
 		// 該当のつぶやきが存在しているかを確認
-		if (Tweet::where('id', $tweet_id)->exists()) {
+		if ($tweet->tweetExists($tweet_id)) {
 			$tweet = Tweet::find($tweet_id);
 			// 該当つぶやきがログインユーザーのものであるor該当つぶやきのユーザーをフォローしているか確認
 			if(Auth::id() === $tweet->user->id || Auth::user()->isFollowing($tweet->user->id)) {

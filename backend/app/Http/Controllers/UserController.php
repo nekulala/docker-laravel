@@ -19,9 +19,9 @@ class UserController extends Controller
 	}
 
 	// ユーザーをフォローする処理
-	public function follow($user_id) {
+	public function follow(User $user, $user_id) {
 		// 該当のユーザーが存在しているかを確認
-		if (User::where('id', $user_id)->exists()) {
+		if ($user->userExists($user_id)) {
 			// ログインしているユーザーのデータを取得
 			$login_user = Auth::user();
 			// ①フォロー対象のユーザーがログインユーザーではない
@@ -35,9 +35,9 @@ class UserController extends Controller
 	}
 
 	// ユーザーをフォロー解除する処理
-	public function unfollow($user_id) {
+	public function unfollow(User $user, $user_id) {
 		// 該当のユーザーが存在しているかを確認
-		if (User::where('id', $user_id)->exists()) {
+		if ($user->userExists($user_id)) {
 			// ログインしているユーザーのデータを取得
 			$login_user = Auth::user();
 			// ①フォロー解除対象のユーザーがログインユーザーではない

@@ -26,9 +26,9 @@ class TweetController extends Controller
     }
 
 	// 既存ツイート編集ページ表示
-	public function showEditPage($tweet_id) {
+	public function showEditPage(Tweet $tweet, $tweet_id) {
 		// 該当のつぶやきが存在しているかを確認
-		if (Tweet::where('id', $tweet_id)->exists()) {
+		if ($tweet->tweetExists($tweet_id)) {
 			$tweet = Tweet::find($tweet_id);
 			// 該当のつぶやきがログインユーザーのものか確認
 			if (Auth::id() === $tweet->user_id) {
@@ -39,7 +39,7 @@ class TweetController extends Controller
 	}
 
 	// 既存ツイート編集処理
-	public function editTweet(Request $request, $tweet_id) {
+	public function editTweet(Tweet $tweet, Request $request, $tweet_id) {
 		$request->validate([
             'tweet' => [
 				'required',
@@ -47,7 +47,7 @@ class TweetController extends Controller
 				]
         ]);
 		// 該当のつぶやきが存在しているかを確認
-		if (Tweet::where('id', $tweet_id)->exists()) {
+		if ($tweet->tweetExists($tweet_id)) {
 			$tweet = Tweet::find($tweet_id);
 			// 該当のつぶやきがログインユーザーのものか確認
 			if (Auth::id() === $tweet->user_id) {
@@ -60,9 +60,9 @@ class TweetController extends Controller
 	}
 
 	// 既存ツイート削除処理
-	public function deleteTweet($tweet_id) {
+	public function deleteTweet(Tweet $tweet, $tweet_id) {
 		// 該当のつぶやきが存在しているかを確認
-		if (Tweet::where('id', $tweet_id)->exists()) {
+		if ($tweet->tweetExists($tweet_id)) {
 			$tweet = Tweet::find($tweet_id);
 			// 該当のつぶやきがログインユーザーのものか確認
 			if (Auth::id() === $tweet->user_id) {

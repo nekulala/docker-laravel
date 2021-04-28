@@ -11,9 +11,9 @@ use App\Models\Favorite;
 class FavoriteController extends Controller
 {
     // いいね登録処理
-	public function favorite(Favorite $favorite, $tweet_id) {
+	public function favorite(Tweet $tweet, Favorite $favorite, $tweet_id) {
 		// ツイートが存在するか（削除されていないか）の判定
-		if (Tweet::where('id', $tweet_id)->exists()) {
+		if ($tweet->tweetExists($tweet_id)) {
 			// 存在している場合は該当ツイートを取得
 			$tweet = Tweet::find($tweet_id);
 			// 該当ツイートをしたユーザーをフォローしている or 該当ツイートをしたのがログインユーザーかの判定
@@ -32,9 +32,9 @@ class FavoriteController extends Controller
 	}
 
 	// いいね取消処理
-	public function unfavorite(Favorite $favorite, $tweet_id) {
+	public function unfavorite(Tweet $tweet, Favorite $favorite, $tweet_id) {
 		// ツイートが存在するか（削除されていないか）の判定
-		if (Tweet::where('id', $tweet_id)->exists()) {
+		if ($tweet->tweetExists($tweet_id)) {
 			// 存在している場合は該当ツイートを取得
 			$tweet = Tweet::find($tweet_id);
 			// 該当ツイートをしたユーザーをフォローしているor該当ツイートをしたのがログインユーザーかの判定

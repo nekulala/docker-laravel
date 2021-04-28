@@ -33,4 +33,9 @@ class Tweet extends Model
 		$tweet->favorites()->delete();
 		});
 	}
+
+	// 存在しているつぶやきかの判定
+	public function tweetExists($tweet_id) {
+		return $this->where('id', $tweet_id)->exists();
+	}
 }
