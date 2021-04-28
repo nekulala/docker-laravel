@@ -15,10 +15,10 @@
 					<form action="{{ url('/create_tweet') }}" method="POST">
 						@csrf
 						<div class="form-group">
-							<input type="text" class="form-control mb-2" name="tweet">
+							<input id="tweet" type="text" class="form-control @error('tweet') is-invalid @enderror mb-2" name="tweet" value="{{ old('tweet') }}" required autocomplete="tweet" autofocus>
 						<div>
 						@error('tweet')
-							<li>{{$message}}</li>
+							<div style="color:red">{{ $message }}</div>
 						@enderror
 						<button type="submit" class="btn btn-primary">つぶやく</button>
 					</form>
