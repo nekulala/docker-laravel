@@ -33,7 +33,7 @@
 				</div>
 			</div>
 			{{ $following_users->links() }}
-			<a class="btn btn-link mt-3 float-right" href="{{ url('/home') }}" role="button">トップページへ戻る</a>
+			@include('layouts.redirect_home_link')
         </div>
     </div>
 </div>

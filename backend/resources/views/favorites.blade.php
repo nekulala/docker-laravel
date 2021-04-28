@@ -34,8 +34,8 @@
 				</div>
 			</div>
 			{{ $favorite_tweets->links() }}
-			<a class="btn btn-link mt-3 float-right" href="{{ url('/home') }}" role="button">トップページへ戻る</a>
-        </div>
+			@include('layouts.redirect_home_link')
+		</div>
     </div>
 </div>
 @endsection
