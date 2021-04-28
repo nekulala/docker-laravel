@@ -26,5 +26,6 @@
             </div>
         </div>
     </div>
+	<a class="btn btn-link mt-3 float-right" href="{{ url('/home') }}" role="button">トップページへ戻る</a>
 </div>
 @endsection
