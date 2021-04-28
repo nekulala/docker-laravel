@@ -9,7 +9,7 @@ use App\Models\User;
 use App\Models\Tweet;
 use App\Models\Favorite;
 
-class getFavoritesTest extends TestCase
+class GetFavoritesTest extends TestCase
 {
 	use RefreshDatabase;
     /**

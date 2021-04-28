@@ -14,7 +14,7 @@ class UserController extends Controller
 {
 	// ユーザーの一覧表示
     public function index() {
-		$users = User::all();
+		$users = User::paginate(5);
 		return view('users', compact('users'));
 	}
 
@@ -28,7 +28,7 @@ class UserController extends Controller
 			// ②ログインユーザーがフォロー対象のユーザーを未フォローか確認
 			if ($login_user->id != $user_id && !$login_user->isFollowing($user_id)) {
 				$login_user->follows()->attach($user_id);
-				return redirect('users');
+				return back()->withInput();
 			}
 		}
 		return redirect('users')->with('ng', __('フォローに失敗しました。'));
@@ -55,7 +55,7 @@ class UserController extends Controller
 						->delete();
 				// フォロー解除処理
 				$login_user->follows()->detach($user_id);
-				return redirect('users');
+				return back()->withInput();
 			}
 		}
 		return redirect('users')->with('ng', __('フォロー解除に失敗しました。'));
@@ -66,7 +66,7 @@ class UserController extends Controller
 		$following_users = User::select('users.*')
 				->join('followers', 'users.id', '=', 'followers.followed_id')
 				->where('followers.following_id', Auth::id())
-				->get();
+				->paginate(5);
 		return view('followers', compact('following_users'));
 	}
 }

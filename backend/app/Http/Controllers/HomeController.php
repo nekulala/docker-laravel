@@ -42,7 +42,7 @@ class HomeController extends Controller
 							$query->where('followers.following_id', '=', null)
 							->where('users.id', '=', Auth::id());
 						})
-						->get();
+						->paginate(5);
         return view('home', compact('tweets'));
     }
 }

@@ -56,8 +56,9 @@
 							@endif
 						</tbody>
 					</table>
-        	    </div>
-        	</div>
+				</div>
+			</div>
+			{{ $tweets->links() }}
         </div>
     </div>
 </div>

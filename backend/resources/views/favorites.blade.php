@@ -14,20 +14,26 @@
         	        @endif
 					<table class="table table-striped">
 						<tbody>
-							@if ($favorites->isEmpty())
+							@if ($favorite_tweets->isEmpty())
 								いいねしているつぶやきはありません。
 							@else
-								@foreach ($favorites as $favorite)
+								@foreach ($favorite_tweets as $favorite_tweet)
 									<tr>
-										<td>{{ $favorite->name }}</td>
-										<td>{{ $favorite->tweet }}</td>
+										<td>{{ $favorite_tweet->name }}</td>
+										<td>{{ $favorite_tweet->tweet }}</td>
+										<td>
+											<div class="float-right">
+												<a class="btn btn-secondary btn-sm" href="{{ url('/unfavorite/' .$favorite_tweet->id) }}" role="button">いいね取消</a>
+											</div>
+										</td>
 									</tr>
 								@endforeach
 							@endif
 						</tbody>
 					</table>
-        	    </div>
-        	</div>
+				</div>
+			</div>
+			{{ $favorite_tweets->links() }}
         </div>
     </div>
 </div>

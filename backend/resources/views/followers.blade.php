@@ -20,13 +20,19 @@
 								@foreach ($following_users as $following_user)
 									<tr>
 										<td>{{ $following_user->name }}</td>
+										<td>
+											<div class="float-right">
+												<a class="btn btn-danger btn-sm" href="{{ url('/unfollow/' .$following_user->id) }}" role="button">フォロー解除</a>
+											</div>
+										</td>
 									</tr>
 								@endforeach
 							@endif
 						</tbody>
 					</table>
-        	    </div>
-        	</div>
+				</div>
+			</div>
+			{{ $following_users->links() }}
         </div>
     </div>
 </div>
