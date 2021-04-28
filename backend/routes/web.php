@@ -11,9 +11,13 @@
 |
 */
 
-// トップページ
+// トップページ(ログインしていたら/homeへリダイレクトさせる)
 Route::get('/', function () {
-    return view('welcome');
+	if (Auth::check()) {
+		return redirect('home');
+	} else{
+		return view('welcome');
+	}
 });
 
 Auth::routes();
